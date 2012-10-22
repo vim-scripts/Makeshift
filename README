@@ -6,33 +6,57 @@ You'll want to use this plugin if you work on a lot of projects with different b
 
 To make building really fast, bind the :make command to a function key in your vimrc.
 
-    nnoremap    <F5>   :<C-U>make<CR
+
+    nnoremap    <F5>   :<C-U>make<CR>
 
 HOW IT WORKS
 
-This plug-in works by looking for known build files in the current working directory and sets 'makeprg'; by default this happens on start-up. You can use the command to re-evaluate 'makeprg'.
+This plug-in works by looking for known build files in the current working directory upwards, and sets |'makeprg'|; by default this happens on start-up.
+
+You can use the command to re-evaluate |'makeprg'|.
 
     :Makeshift
 
+
 SETTINGS
 
-To prevent Makeshift from setting 'makeprg' on start-up, put the following in your vimrc.
+To prevent Makeshift from setting |'makeprg'| on start-up, put the following in your |vimrc|.
 
     let g:makeshift_on_startup = 0
 
+To prevent Makeshift from setting |'makeprg'| on |BufRead|, put the following in your |vimrc|.
+
+    let g:makeshift_on_bufread = 0
+
+
+
+BUILD SYSTEMS
+
+Makshift currently associates the following files with their build systems:
+
+    * Jamfile: bjam
+    * Makefile: make
+    * Rakefile: rake
+    * SConstruct: scons
+    * build.xml: ant
+    * pom.xml: mvn
+
+
 ADDING A NEW BUILD SYSTEM
 
-If Makeshift doesn't already know about your build system, or you wish to override the default program for a given file, you can define a dictionary, which has filenames as keys and corresponding programs as values. 
+If Makeshift doesn't already know about your build system, or you wish to override the default program for a given file, you can define a dictionary, which has filenames as keys and corresponding programs as values.
 
     let g:makeshift_systems = {
         \&#039build.ninja ': 'ninja',
         \}
 
+
 REMOVING A BUILD SYSTEM
 
-If you don't want Makeshift to set 'makeprg' for a given build system, you can disable it by defining a list of the files to ignore.
+If you don't want Makeshift to set |'makeprg'| for a given build system, you can disable it by defining a list of the files to ignore.
 
     let g:makeshift_ignored = ['Jamfile']
+
 
 ABOUT
 
@@ -41,6 +65,7 @@ Makeshift was written by Pete Johns. You can contact him via http://johnsy.com/ 
 You can grab the latest version of this plugin, submit an improvement or report a bug on GitHub:
 
     http://github.com/johnsyweb/vim-makeshift/
+
 
 LICENSE
 
