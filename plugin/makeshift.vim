@@ -2,7 +2,7 @@ if exists('g:loaded_makeshift') || &cp || version < 700
     finish
 endif
 
-let g:loaded_makeshift = 0.7
+let g:loaded_makeshift = 0.8
 let s:keepcpo = &cpo
 set cpo&vim
 
@@ -12,6 +12,7 @@ function! s:build_defaults()
                 \'Makefile': 'make',
                 \'Rakefile': 'rake',
                 \'SConstruct': 'scons',
+                \'build.gradle': 'gradle',
                 \'build.xml': 'ant',
                 \'pom.xml': 'mvn',
                 \}

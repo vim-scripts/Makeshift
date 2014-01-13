@@ -93,6 +93,7 @@ Makeshift currently associates the following files with their build systems:
     * Makefile: make
     * Rakefile: rake
     * SConstruct: scons
+    * build.gradle: gradle
     * build.xml: ant
     * pom.xml: mvn
 
