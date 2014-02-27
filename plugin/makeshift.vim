@@ -2,7 +2,7 @@ if exists('g:loaded_makeshift') || &cp || version < 700
     finish
 endif
 
-let g:loaded_makeshift = 0.8
+let g:loaded_makeshift = 0.9
 let s:keepcpo = &cpo
 set cpo&vim
 
@@ -91,6 +91,10 @@ endif
 
 if !exists('g:makeshift_on_bufread') || g:makeshift_on_bufread
     autocmd BufRead * call s:makeshift()
+endif
+
+if !exists('g:makeshift_on_bufnewfile') || g:makeshift_on_bufnewfile
+    autocmd BufNewFile * call s:makeshift()
 endif
 
 let &cpo=s:keepcpo
