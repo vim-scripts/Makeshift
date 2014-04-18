@@ -1,79 +1,94 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=4278
 
-INTRODUCTION
+Introduction
 
-You'll want to use this plugin if you work on a lot of projects with different build systems (Ant, BJam, Make, Maven, Scons, et cetera). You want your editor to be able to detect your current build system and set 'makeprg' accordingly.
+You'll want to use this plugin if you work on a lot of projects with different build systems. You want your editor to be able to detect your current build system and set 'makeprg' accordingly.
 
-To make building really fast, bind the :make command to a function key in your vimrc.
+To make building really fast, map the :make command to a function key in your vimrc.
 
+nnoremap <F5> :<C-U>make<CR>
 
-    nnoremap    <F5>   :<C-U>make<CR>
-
-HOW IT WORKS
+How it works
 
 This plug-in works by looking for known build files in the current working directory upwards, and sets 'makeprg'; by default this happens on start-up. You can use the command to re-evaluate 'makeprg':
 
-    :Makeshift
+:Makeshift
 
-Sometimes your build script won't be in the current working directory, this is particularly common when 'autochdir' is set. For this reason :Makeshift sets g:makeshift_root to be the directory containing the build script that it used to determine the build system.
+Sometimes your build script won't be in the current working directory, this is particularly common when 'autochdir' is set. For this reason :Makeshift sets b:makeshift_root to be the directory containing the build script that it used to determine the build system.
 
-:MakeshiftBuild is a wrapper around Vim's own :make command, which changes directory to g:makeshift_root before calling :make with any arguments you provide and then returns to your working directory. If you often work in subdirectories, you may want to map the :MakeshiftBuild command to a function key in your vimrc:
+:MakeshiftBuild is a wrapper around Vim's own :make command, which changes directory to b:makeshift_root before calling :make with any arguments you provide and then returns to your working directory. If you often work in subdirectories, you may want to map the :MakeshiftBuild command to a function key in your vimrc:
 
-    nnoremap    <F5>   :<C-U>MakeshiftBuild<CR>
-    nnoremap    <F6>   :<C-U>MakeshiftBuild check<CR>
-    ...
+nnoremap <F5> :<C-U>MakeshiftBuild<CR>
+nnoremap <F6> :<C-U>MakeshiftBuild check<CR>
+...
 
+Alternatively you can use the makeshift_chdir option to automatically change the current working directory to the one containing your build script.
 
-SETTINGS
+Settings
 
-To prevent Makeshift from setting |'makeprg'| on start-up, put the following in your |vimrc|.
+To tune the behaviour of this plugin, add any of the following switches to your vimrc:
 
-    let g:makeshift_on_startup = 0
+let g:makeshift_on_startup = 0
 
-To prevent Makeshift from setting |'makeprg'| on |BufRead|, put the following in your |vimrc|.
+To prevent Makeshift from setting 'makeprg' on BufRead:
 
-    let g:makeshift_on_bufread = 0
+let g:makeshift_on_bufread = 0
 
+To prevent Makeshift from setting 'makeprg' on BufNewFile:
 
+let g:makeshift_on_bufnewfile = 0
 
-BUILD SYSTEMS
+To prevent Makeshift from setting 'makeprg' on BufEnter:
+
+let g:makeshift_on_bufenter = 0
+
+To automatically change directory to 'b:makeshift_root' when it is discovered:
+
+let g:makeshift_chdir = 1
+
+Build Systems
 
 Makeshift currently associates the following files with their build systems:
 
-    * Jamfile: bjam
-    * Makefile: make
-    * Rakefile: rake
-    * SConstruct: scons
-    * build.gradle: gradle
-    * build.xml: ant
-    * pom.xml: mvn
+* Jamfile: bjam
+* Makefile: make
+* Rakefile: rake
+* SConstruct: scons
+* build.gradle: gradle
+* build.xml: ant
+* mix.exs: mix
+* pom.xml: mvn
 
-
-ADDING A NEW BUILD SYSTEM
+Adding a new build system
 
 If Makeshift doesn't already know about your build system, or you wish to override the default program for a given file, you can define a dictionary, which has filenames as keys and corresponding programs as values.
 
-    let g:makeshift_systems = {
-        \&#039build.ninja ': 'ninja',
-        \}
+let g:makeshift_systems = {
+    &#039build.ninja ': 'ninja',
+    \}
 
+Removing a build system
 
-REMOVING A BUILD SYSTEM
+If you don't want Makeshift to set 'makeprg' for a given build system, you can disable it by defining a list of the files to ignore.
 
-If you don't want Makeshift to set |'makeprg'| for a given build system, you can disable it by defining a list of the files to ignore.
+let g:makeshift_ignored = ['Jamfile']
 
-    let g:makeshift_ignored = ['Jamfile']
+License
 
+Makeshift is licensed under the same terms as Vim itself (see :help license).
 
-ABOUT
+Thanks
 
-Makeshift was written by Pete Johns. You can contact him via http://johnsy.com/ or on Twitter where he masquerades as @johnsyweb.
+If you find this plug-in useful, please follow this repository on GitHub and vote for it vim.org. If you have something to say, you can contact @johnsyweb on Twitter and GitHub.
 
-You can grab the latest version of this plugin, submit an improvement or report a bug on GitHub:
+Many thanks
+
+I'm grateful for contributions to what was a solo project (hooray for GitHub)! If you'd like to thank the contributors, you can find their details here:
+
+https://github.com/johnsyweb/vim-makeshift/graphs/contributors
+
+You can grab the latest version of this plugin, submit an improvement or report a bug on GitHub: 
 
    https://github.com/johnsyweb/vim-makeshift
 
 
-LICENSE
-
-Makeshift is licensed under the same terms as Vim itself (see :help license).
