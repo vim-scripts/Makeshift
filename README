@@ -56,19 +56,21 @@ Makeshift currently associates the following files with their build systems:
 
 * Jamfile: bjam
 * Makefile: make
+* GNUmakefile: make
 * Rakefile: rake
 * SConstruct: scons
 * build.gradle: gradle
 * build.xml: ant
 * mix.exs: mix
 * pom.xml: mvn
+* build.ninja: ninja
 
 Adding a new build system
 
 If Makeshift doesn't already know about your build system, or you wish to override the default program for a given file, you can define a dictionary, which has filenames as keys and corresponding programs as values.
 
 let g:makeshift_systems = {
-    &#039build.ninja ': 'ninja',
+    &#039build.sbt ': 'sbt',
     \}
 
 Removing a build system
